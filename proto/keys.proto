@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package mk1.keys.v1;
+
+message GetValueRequest {
+  repeated string key = 1;
+}
+
+message GetValueResponse {
+  repeated string value = 1;
+}
+
+service Keys {
+  rpc GetValue (GetValueRequest) returns (GetValueResponse);
+}
