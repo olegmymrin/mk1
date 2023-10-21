@@ -2,12 +2,14 @@ syntax = "proto3";
 
 package mk1.keys.v1;
 
+option go_package = "github.com/olegmymrin/mk1/service/api";
+
 message GetValueRequest {
-  repeated string key = 1;
+   string key = 1;
 }
 
 message GetValueResponse {
-  repeated string value = 1;
+   string value = 1;
 }
 
 service Keys {
