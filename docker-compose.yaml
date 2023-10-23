@@ -9,3 +9,13 @@ services:
       - "./data/api/:/opt/app/"
   db:
     image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    user: ${MY_UID}:999
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - "./data/postgres/:/var/lib/postgresql/data/"
+      - "./schema/init.sql:/docker-entrypoint-initdb.d/init.sql"
