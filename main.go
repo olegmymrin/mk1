@@ -1,20 +1,24 @@
 package main
 
 import (
-	"net"
+	"os"
 
-	"github.com/olegmymrin/mk1/service/api"
-	"google.golang.org/grpc"
+	"github.com/olegmymrin/mk1/service"
+	"gopkg.in/yaml.v3"
 )
 
 func main() {
-	srv := grpc.NewServer()
-	api.RegisterKeysServer(srv, api.NewServer())
-	listener, err := net.Listen("tcp4", "127.0.0.1:8080")
+	if len(os.Args) < 2 {
+		return
+	}
+	var config service.Config
+	configFileData, err := os.ReadFile(os.Args[1])
 	if err != nil {
 		panic(err)
 	}
-	if err := srv.Serve(listener); err != nil {
+	if err := yaml.Unmarshal(configFileData, &config); err != nil {
 		panic(err)
 	}
+	srv := service.NewService(&config)
+	srv.ListenAndServe()
 }

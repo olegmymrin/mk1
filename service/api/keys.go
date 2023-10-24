@@ -4,15 +4,15 @@ import (
 	"context"
 )
 
-type server struct {
+type keysServer struct {
 	UnimplementedKeysServer
 }
 
-func NewServer() *server {
-	return &server{}
+func NewKeysServer() *keysServer {
+	return &keysServer{}
 }
 
-func (s *server) GetValue(context.Context, *GetValueRequest) (*GetValueResponse, error) {
+func (s *keysServer) GetValue(context.Context, *GetValueRequest) (*GetValueResponse, error) {
 	return &GetValueResponse{
 		Value: "unknown",
 	}, nil
